@@ -1,25 +1,25 @@
-                       "MigrateGnuPGKeybase"
+ï»¿                       "MigrateGnuPGKeybase"
                        
 ####################################################################
 "MigrateGnuPGKeybase" basiert auf dem Programm "StartCon". Die
-meisten Informationen für "StartCon" gelten somit auch für
-"MigrateGnuPGKeybase". Die Logik unterscheidet sich bezüglich der
+meisten Informationen fÃ¼r "StartCon" gelten somit auch fÃ¼r
+"MigrateGnuPGKeybase". Die Logik unterscheidet sich bezÃ¼glich der
 von "StartCon" in einer erweiterten Funktion zur Migration von
-GnuPG Schlüsseldatenbanken, die sich in der [Sektion] "GpgMigrate"
+GnuPG SchlÃ¼sseldatenbanken, die sich in der [Sektion] "GpgMigrate"
 der INI-Datei wiederfindet (Details: s.u.) ...
   
            *** Copyright (C) 2017-2022 by Veit Berwig ***
 
-Dieses Programm ist freie Software. Sie können es unter den
+Dieses Programm ist freie Software. Sie kÃ¶nnen es unter den
 Bedingungen der GNU General Public License, wie von der Free
-Software Foundation veröffentlicht, weitergeben und/oder
-modifizieren, entweder gemäß Version 3 der Lizenz oder (nach Ihrer
-Option) jeder späteren Version.
+Software Foundation verÃ¶ffentlicht, weitergeben und/oder
+modifizieren, entweder gemÃ¤ÃŸ Version 3 der Lizenz oder (nach Ihrer
+Option) jeder spÃ¤teren Version.
 
-Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, daß
+Die VerÃ¶ffentlichung dieses Programms erfolgt in der Hoffnung, daÃŸ
 es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar
 ohne die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT
-FÜR EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General
+FÃœR EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General
 Public License.
 
 Sie sollten ein Exemplar der GNU General Public License zusammen mit
@@ -32,10 +32,10 @@ dieser Distribution.
 
 ####################################################################
 
-Der Loader "StartCon.exe" kann für jedes Programm benutzt werden, um
+Der Loader "StartCon.exe" kann fÃ¼r jedes Programm benutzt werden, um
 dieses zu starten, bzw. verborgen zu starten. 
 
-Folgende Aktionen werden vor dem Start durchgeführt:
+Folgende Aktionen werden vor dem Start durchgefÃ¼hrt:
 ====================================================================
 
 Es werden folgende Umgebungsvariablen in die lokale Shell-Umgebung
@@ -45,24 +45,24 @@ Nicht-Existenz unter dem "."-Verzeichnis als Objekte angelegt:
 ComSpec, CONTROLLERPATH, EXEC_DATE, Path
 
 Der Inhalt der Variablen "CONTROLLERPATH" zeigt den lokalen Pfad
-unterhalb des "."-Ausführungsverzeichnisses. Die Variable "EXEC_DATE"
+unterhalb des "."-AusfÃ¼hrungsverzeichnisses. Die Variable "EXEC_DATE"
 beinhaltet einen lokalen Zeitstempel, der in Protokoll-Dateien
 verwendet werden kann. Die Variable "Path" wird erweitert auf das 
-"."-Ausführungsverzeichnis dieses Programmes.
+"."-AusfÃ¼hrungsverzeichnis dieses Programmes.
 
 Der Loader "StartCon.exe" kann in jede .EXE-Datei umbenannt
 bzw. kopiert werden, um die Namensgebung an ein anderes
 Programm anzupassen.
 
-Durch die Umbenennung können mehrere Instanzen des Programmes im
-Adressraum ausgeführt werden. Ein Mehrfachstart des Programmes
+Durch die Umbenennung kÃ¶nnen mehrere Instanzen des Programmes im
+Adressraum ausgefÃ¼hrt werden. Ein Mehrfachstart des Programmes
 innerhalb seines Namensraumes und innerhalb des Namensraumes des
-angemeldeten Benutzers aus Sicherheitsgründen unterbunden
-(nur eine Instanz möglich).
+angemeldeten Benutzers aus SicherheitsgrÃ¼nden unterbunden
+(nur eine Instanz mÃ¶glich).
 
 Die ini-Datei wird, falls diese nicht existiert, mit dem Namen
-der ".exe"-Datei angelegt und auch in Abhängigkeit zu dem Namen
-der ".exe"-Datei ausgewertet; somit können mehrere Instanzen
+der ".exe"-Datei angelegt und auch in AbhÃ¤ngigkeit zu dem Namen
+der ".exe"-Datei ausgewertet; somit kÃ¶nnen mehrere Instanzen
 mit unterschiedlichen Konfigurationen gestartet werden.
 
 Ein Mehrfach-Start des in der ini-Datei angegebenen Programmes
@@ -70,29 +70,29 @@ wird durch vorheriges Scannen der Prozess-Tabelle verhindert,
 falls das Programm schon im Speicher aktiv ist. Dies kann in der
 INI-Datei auch deaktiviert werden.
 
-In der ini-Datei können einige Laufzeit-Parameter angepasst
-werden. Inbesondere wird Rücksicht auf die Ausführung von
+In der ini-Datei kÃ¶nnen einige Laufzeit-Parameter angepasst
+werden. Inbesondere wird RÃ¼cksicht auf die AusfÃ¼hrung von
 kaskadierten Programmaufrufen genommen wie z.B. der Wrapper des
 Programmes "Kleopatra.exe", (nicht mehr in Gpg4win 3.0), dessen
 Name genauso lautet wie der Prozess den dieser initialisiert.
 
 Da sich der Wrapper von "Kleopatra.exe" nach dessen Start beendet,
-könnte keine Prozessüberwachung stattfinden. Somit ist es
-"StartCon.exe" auch möglich nach Beendigung des Programmes
+kÃ¶nnte keine ProzessÃ¼berwachung stattfinden. Somit ist es
+"StartCon.exe" auch mÃ¶glich nach Beendigung des Programmes
 "Kleopatra.exe" auch die notwendigen "Helper-Prozesse":
 "dbus-daemon.exe", "gpg-agent.exe" und "scdaemon.exe", etc. zu
-beenden, damit ein USB-Datenträger auch vom System getrennt
+beenden, damit ein USB-DatentrÃ¤ger auch vom System getrennt
 werden kann.
 
 Man kann dieses Werkzeug auch zum Beenden von einer ganzen Liste von
 Programmen verwenden, falls sich eine Anwendung mit ihren Hilfs-
-Programmen instabil verhält. Ein Beispiel ist "Gpg4Win", welches aus
-unzähligen exe-Dateien besteht, die voneinander in Relation gestartet
-werden. Vielfach wird ein Programm nicht richtig beendet und läuft
+Programmen instabil verhÃ¤lt. Ein Beispiel ist "Gpg4Win", welches aus
+unzÃ¤hligen exe-Dateien besteht, die voneinander in Relation gestartet
+werden. Vielfach wird ein Programm nicht richtig beendet und lÃ¤uft
 im Hintergrund unsichtbar weiter ! Um diese Situation in "einem Rutsch"
 zu beenden, erzeugt man eine ini-Datei "Gpg4WinBeenden.ini" und
 kopiert die Exe-Datei von "StartCon.exe" in eine exe-Datei
-"Gpg4WinBeenden.exe". In der ini-Datei ändert man dann folgende Zeilen:
+"Gpg4WinBeenden.exe". In der ini-Datei Ã¤ndert man dann folgende Zeilen:
 
 ...
 LaunchAPP=c:\Windows\SysWOW64\cmd.exe
@@ -115,14 +115,14 @@ KILLAPP7=dirmngr.exe
 KILLAPP8=gpgsm.exe
 KILLAPP9=scdaemon.exe
 
-Erklärung:
+ErklÃ¤rung:
 ====================================================================
-LaunchAPP         Enthält den 32-bit Kommandozeilen-Interpreter, da
+LaunchAPP         EnthÃ¤lt den 32-bit Kommandozeilen-Interpreter, da
                   alle Anwendungen 32-bit sind.
-LaunchPROC        Enthält den Namen der exe-Datei
+LaunchPROC        EnthÃ¤lt den Namen der exe-Datei
 LaunchAPP_Param   Ist nur ein Dummy. der nichts machen soll.
-LaunchPROC_HIDDEN Lässt das Programm verborgen ausführen.
-KILLAPP0 - ...    Beendet die Programme nach Ausführung von ...
+LaunchPROC_HIDDEN LÃ¤sst das Programm verborgen ausfÃ¼hren.
+KILLAPP0 - ...    Beendet die Programme nach AusfÃ¼hrung von ...
                   "LaunchAPP_Param" in der richtigen Reihenfolge.
 
 ====================================================================
@@ -132,34 +132,34 @@ INI-Datei
 <name>.ini (Default: "StartCon.ini" der Datei
 <name>.exe (Default: "StartCon.exe"):
 
-; LaunchAPP:            Absoluter Pfad des ausführbaren Programmes.
+; LaunchAPP:            Absoluter Pfad des ausfÃ¼hrbaren Programmes.
 ; DontCheckPATH:        Wenn "true", dann wird der absolute Pfad von
-;                       "LaunchAPP" nicht geprüft. Es wird dann der
+;                       "LaunchAPP" nicht geprÃ¼ft. Es wird dann der
 ;                       Suchpfad verwendet. Bei "false" muss ein
 ;                       absoluter Pfad angegeben werden; dieser wird
-;                       dann auf Existenz geprüft.
+;                       dann auf Existenz geprÃ¼ft.
 ; LaunchPROC:           Prozessname mit Erweiterung auf den gewartet
 ;                       werden soll.
 ; LaunchPROC_SLEEP:     Anzahl der Sekunden mit denen auf das Programm
-;                       gewartet wird bevor geprüft wirt.
+;                       gewartet wird bevor geprÃ¼ft wirt.
 ; WORK_DIR:             Arbeitsverzeichnis
-; ComSpec:              %ComSpec% für ein Kommandozeilen-Interface mit
+; ComSpec:              %ComSpec% fÃ¼r ein Kommandozeilen-Interface mit
 ;                       anderem Interpreter.
 ; LaunchAPP_Param:      Kommandoparameter
-; LaunchPROC_CASCADE:   Kaskadierte Ausführung (z.B. Setup + installer)
+; LaunchPROC_CASCADE:   Kaskadierte AusfÃ¼hrung (z.B. Setup + installer)
 ; LaunchPROC_WAIT:      Auf Prozess warten (synchron) oder nach Start 
 ;                       beenden.
-; LaunchPROC_DONTCHECK: Nicht prüfen, ob Prozess-Name ("LaunchPROC")
-;                       schon im Speicher läuft.
+; LaunchPROC_DONTCHECK: Nicht prÃ¼fen, ob Prozess-Name ("LaunchPROC")
+;                       schon im Speicher lÃ¤uft.
 ; EnvUpdate:            Prozess-Environment in die Umgebung exportieren.
 ; http_proxy:           HTTP  Umgebungs-Proxy-Variable lokal definieren.
 ; https_proxy:          HTTPS Umgebungs-Proxy-Variable lokal definieren.
 ; ftp_proxy:            FTP   Umgebungs-Proxy-Variable lokal definieren.
 ; KILLAPP0-KILLAPP19    Prozesse mit Namen, die nach Abschluss ebenfalls 
 ;                       beendet werden sollen.
-; REMOVE0=REMOVE19      Zu löschende Dateien nach dem Beenden der
+; REMOVE0=REMOVE19      Zu lÃ¶schende Dateien nach dem Beenden der
 ;                       Prozesse unter der Sektion KILLAPP0-KILLAPP19.
-;                       Es können auch Umgebungsvariablen verwendet
+;                       Es kÃ¶nnen auch Umgebungsvariablen verwendet
 ;                       werden (min. 10 Zeichen, max 256 Zeichen).
 ;                       Pro Eintrag eine Datei mit absoluten Pfad oder
 ;                       Pfad mit Umgebungsvariable im Prozesskontext.
@@ -168,14 +168,14 @@ INI-Datei
 ;                       Beendigung gewartet werden soll.
 
 [Main Prefs]
-; Auszuführendes Programm mit absoluten Pfad zum aktuellen Pfad
+; AuszufÃ¼hrendes Programm mit absoluten Pfad zum aktuellen Pfad
 ; der Datei <name>.exe.
 LaunchAPP=c:\windows\system32\cmd.exe
 
-; Absoluter Pfad wird geprüft.
+; Absoluter Pfad wird geprÃ¼ft.
 DontCheckPATH=false
 
-; Teil des Programmes, auf dessen Ausführung / Beendigung
+; Teil des Programmes, auf dessen AusfÃ¼hrung / Beendigung
 ; gewartet werden soll (die Erweiterung ".exe" muss mit
 ; angegeben werden.
 LaunchPROC=cmd.exe
@@ -190,7 +190,7 @@ WORK_DIR=
 
 ; Kommandozeilen-Interpreter
 ; Hier kann ein anderer Kommandozeilen-Interpreter (cmd.exe) bzw.
-; ein anderer absoluter Pfad für einen Kommandozeilen-Interpreter
+; ein anderer absoluter Pfad fÃ¼r einen Kommandozeilen-Interpreter
 ; angegeben werden; wie z.B. cmd.exe aus dem ReactOS-Projekt:
 ; https://iso.reactos.org (roscmd.exe als cmd.exe-Ersatz)
 ;
@@ -201,14 +201,14 @@ LaunchAPP_Param=
 
 ; Boolean-Wert (wahr/falsch), der signalisiert, dass ein Prozess
 , einen weiteren Prozess (mit gleichen Namen) startet und sich
-; danach sofort wieder beendet. Hier können die Werte "true" und
+; danach sofort wieder beendet. Hier kÃ¶nnen die Werte "true" und
 ; "false" angegeben werden. Ist der Wert auf "true" gesetzt, wird
-; die Routine "Warten auf Ausführung / Warten auf Beendigung" ein
-; 2.-tes mal durchgeführt.
+; die Routine "Warten auf AusfÃ¼hrung / Warten auf Beendigung" ein
+; 2.-tes mal durchgefÃ¼hrt.
 LaunchPROC_CASCADE=false
 
 ; Boolean-Wert (wahr/falsch), der signalisiert, dass ein Prozess
-; verborgen ausgeführt werden soll oder angezeigt werden soll.
+; verborgen ausgefÃ¼hrt werden soll oder angezeigt werden soll.
 LaunchPROC_HIDDEN=true
 
 ; Boolean-Wert (wahr/falsch), der signalisiert, dass die
@@ -226,12 +226,12 @@ LaunchPROC_WAIT=true
 ; In das Ereignisprotokoll schreiben (true/[false]).
 Eventlog=false
 
-; Nicht prüfen, ob Prozess-Name ("LaunchPROC") schon im Speicher läuft.
+; Nicht prÃ¼fen, ob Prozess-Name ("LaunchPROC") schon im Speicher lÃ¤uft.
 LaunchPROC_DONTCHECK=true
 
 ; Angabe des Proxy-Servers im Environment zur Auswertung
-; für Programme die das "http_proxy-environment"-Schema
-; unterstützen.
+; fÃ¼r Programme die das "http_proxy-environment"-Schema
+; unterstÃ¼tzen.
 ; Format http  http://proxyserver:proxyport/
 ; Format https https://proxyserver:proxyport/
 ; Format ftp   http://proxyserver:proxyport/
@@ -246,15 +246,15 @@ ftp_proxy_format_example=http://proxyserver:proxyport/
 ftp_proxy_example=http://127.0.0.1:3128/
 
 [GpgMigrate]
-; Sektion für die Aktivierung der Migration der alten
-Schlüsseldatenbank von GnuPG (GpgMigrate=true)
+; Sektion fÃ¼r die Aktivierung der Migration der alten
+SchlÃ¼sseldatenbank von GnuPG (GpgMigrate=true)
 GpgMigrate=true
 
 ; Aktiviert ein kleines Fenster mit Statusmeldngen zu dem
 ; Migrationsvorgang in der rechten oberen Ecke des Bildschirmes.
 ShowSplash=false
 
-; Eindeutige ID im Namen des Umbenannten Originalordners, um zu prüfen
+; Eindeutige ID im Namen des Umbenannten Originalordners, um zu prÃ¼fen
 ; ob eine Migration schon erfolgt ist (Semaphor-Funktion).
 GpgGUID=904899B5-AC07-4080-897D-A34169BA4DAF
 
@@ -264,29 +264,29 @@ UserProfRoaming=%USERPROFILE%\AppData\Roaming
 ; Verzeichnisname des GnuPG-Profils
 GpgProfile=gnupg
 
-; Eindeutige Datei im neuen Schlüsselordner der neuen GnuPG-Version,
-; um zu prüfen ob schon eine neue Version vorliegt.
+; Eindeutige Datei im neuen SchlÃ¼sselordner der neuen GnuPG-Version,
+; um zu prÃ¼fen ob schon eine neue Version vorliegt.
 GpgPubFile=pubring.kbx
 
-; Eindeutige Datei im neuen Schlüsselordner der neuen GnuPG-Version,
-; um zu prüfen ob schon eine neue Version vorliegt.
+; Eindeutige Datei im neuen SchlÃ¼sselordner der neuen GnuPG-Version,
+; um zu prÃ¼fen ob schon eine neue Version vorliegt.
 GpgSocket=S.dirmngr
 
 [KillApp]
 ; Liste der zu beendenden Prozesse, die nach der Beendigung des
 ; Programmes oben unter "LaunchPROC" beendet werden sollen.
-; Es können maximal 20 Prozesse angegeben werden.
+; Es kÃ¶nnen maximal 20 Prozesse angegeben werden.
 ; Diese Prozesse werden auch bei Beendigung des Programmes
 ; "StartController" beendet ! Wenn man hier auch (am besten
-; in der Variablen "KILLAPP0") das auszuführende Programm
-; von OBEN unter "LaunchPROC" einträgt, kann man vorzeitig
+; in der Variablen "KILLAPP0") das auszufÃ¼hrende Programm
+; von OBEN unter "LaunchPROC" eintrÃ¤gt, kann man vorzeitig
 ; das zu startende Programm, sowie alle Subprozesse beenden !!
 ;
 ; Achtung !!
 ; Falls mehrere Instanzen zu einem Programmnamen existieren,
-; wird immer die mit der höchsten Prozess-ID beendet. Es kann
+; wird immer die mit der hÃ¶chsten Prozess-ID beendet. Es kann
 ; somit vorkommen, dass Programme auch beendet werden, die
-; nicht zu dem o. g. Prozess gehören. In diesem Fall
+; nicht zu dem o. g. Prozess gehÃ¶ren. In diesem Fall
 ; sollte man eine gesonderte exe-Datei mit besonderer
 ; Namensgebung aus dem loakeln Pfad nutzen
 ; (cmd-mein-spezieller-name.exe anstatt cmd.exe) anstatt
@@ -307,9 +307,9 @@ KILLAPP9=scdaemon.exe
 ...
 
 [Remove]
-; Liste mit Pfadnamen (REMOVE0-REMOVE19) von zu löschenden
+; Liste mit Pfadnamen (REMOVE0-REMOVE19) von zu lÃ¶schenden
 ; Dateien nach der Beendigung durch KILLAPP0-KILLAPP19.
-; Es können auch Umgebungsvariablen des ausführenden
+; Es kÃ¶nnen auch Umgebungsvariablen des ausfÃ¼hrenden
 ; Benutzers verwendet werden.
 REMOVE0=%APPDATA%\gnupg\S.gpg-agent
 REMOVE1=%APPDATA%\gnupg\S.gpg-agent.browser
@@ -322,27 +322,27 @@ REMOVE5=
 [CloseWin]
 ; Liste der Fenster-Titel (Namen), die vor einem "harten Beenden"
 ; von Prozessen unter "KillApp", "weich" beendet werden sollen.
-; Es können hier 20 Fensternamen eingegeben werden (CLOSEWIN0-
+; Es kÃ¶nnen hier 20 Fensternamen eingegeben werden (CLOSEWIN0-
 ; CLOSEWIN9). Hiermit soll dem Problem Rechnung getragen werden,
 ; dass durch das "harte" Beenden durch "KillApp" die Anwendungen
-; nicht mehr die Möglichkeit haben ihre Dateien korrekt zu
-; schließen, was wiederum zu Inkonsistenzen führen kann.
-; Insbesondere Anwendungen wie Chromium o.ä., die eigene APPs
-; ausführen können, könnten hiervon betroffen sein. Bei der Angabe
+; nicht mehr die MÃ¶glichkeit haben ihre Dateien korrekt zu
+; schlieÃŸen, was wiederum zu Inkonsistenzen fÃ¼hren kann.
+; Insbesondere Anwendungen wie Chromium o.Ã¤., die eigene APPs
+; ausfÃ¼hren kÃ¶nnen, kÃ¶nnten hiervon betroffen sein. Bei der Angabe
 ; von Fenster-Titeln ist wie bei der Angabe der Prozesse unter
 ; "KillApp" Vorsicht geboten. Der Vergleich der Angaben mit den
-; Fenster-Titeln wird in linksbündiger Übereinstimmung als "positiv"
-; ausgewertet; also bei dem Prozess "notepad.exe" heißt der Titel
+; Fenster-Titeln wird in linksbÃ¼ndiger Ãœbereinstimmung als "positiv"
+; ausgewertet; also bei dem Prozess "notepad.exe" heiÃŸt der Titel
 ; in einem deutschen Windows System "Unbenannt - Editor".
-; Wenn man "Unb" in dieser Sektion der ini-Datei für "CLOSEWIN0"
+; Wenn man "Unb" in dieser Sektion der ini-Datei fÃ¼r "CLOSEWIN0"
 ; angibt, wird der Eintrag positiv gewertet !! Um die Namen der
 ; Fenster-Titel in Erfahrung zu bringen, kann man des Task-Manager
 ; benutzen, der unter der Lasche "Anwendungen" die Fenster-Titel
 ; anzeigt; man kann auch die unter Tools enthaltenen Programme
 ; "Au3Info.exe" oder "Au3Info_x64.exe" aus dem AutoIT-Projekt
-; benutzen, die noch mehr Informationen über die Fenster-Strukturen
+; benutzen, die noch mehr Informationen Ã¼ber die Fenster-Strukturen
 ; liefern.
-; CLOSEWINWAIT entscheidet (true/false), ob auf das Schließen der
+; CLOSEWINWAIT entscheidet (true/false), ob auf das SchlieÃŸen der
 ; Fenster gewartet werden soll und CLOSEWINTMOUT beschreibt wie
 ; lange in Sekunden. Wenn CLOSEWINTMOUT 0 ist, wird unendlich
 ; lange gewartet.
@@ -365,12 +365,12 @@ CLOSEWINTMOUT=10
 Das Programm wartet auf die Beendigung des zu startenden Programmes
 und beendigt sich danach selbst.
 
-Es ist möglich einen aktuellen sekunden-genauen ZEIT-WERT
-(z. B.:20131112080754) in die Parameter-Kommandozeile (repräsentiert
+Es ist mÃ¶glich einen aktuellen sekunden-genauen ZEIT-WERT
+(z. B.:20131112080754) in die Parameter-Kommandozeile (reprÃ¤sentiert
 durch die ini-Variable: "LaunchAPP_Param") zu injizieren, um
-eindeutige Dateinamen zu generieren, die sich NICHT überschreiben
+eindeutige Dateinamen zu generieren, die sich NICHT Ã¼berschreiben
 (z. B. Protokoll-Dateien, etc.) ! Die atomare Funktion bezieht
-sich hierbei somit auf einen zeitlichen Vorgang, der grösser als
+sich hierbei somit auf einen zeitlichen Vorgang, der grÃ¶sser als
 1 Sekunde ist (Start 2er aufeinander folgender Prozesse) !
 
 Der Zeitwert hat das Format (siehe oben):
@@ -390,11 +390,11 @@ angegeben wurden. Also z. B.:
 
 evaluiert !!
 
-Dieser Wert wird ebenfalls in eine Shell-Umgebung über die Variable:
+Dieser Wert wird ebenfalls in eine Shell-Umgebung Ã¼ber die Variable:
 %EXEC_DATE% exportiert und kann so weiterverwendet werden.
 
-ES WERDEN KEINE ÄNDERUNGEN AM SYSTEM-DURCHGEFÜHRT UND KEINE DATEIEN
-ODER REGISTRY-EINTRÄGE INSTALLIERT ODER VERÄNDERT !!
+ES WERDEN KEINE Ã„NDERUNGEN AM SYSTEM-DURCHGEFÃœHRT UND KEINE DATEIEN
+ODER REGISTRY-EINTRÃ„GE INSTALLIERT ODER VERÃ„NDERT !!
 
 History/Changelog:
 #####################################################################
@@ -463,7 +463,7 @@ History/Changelog:
 	- "ShowSplash", "true" / "false" used now for disabling or enabling a tiny
 	  spalsh-screen in the upper-right corner of the display to show the user
 	  some infos about my hackings ... maybe not so informational ... so
-	  disable this fu@€in' stuff here, when you will get rid of it ...
+	  disable this fu@â‚¬in' stuff here, when you will get rid of it ...
 
 	- Changed "EventID" to "65535" in order to prevent the Eventsystem from
 	  logging false informations from already registered "EventID"s with
