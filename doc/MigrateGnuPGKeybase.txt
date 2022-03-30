@@ -1,22 +1,14 @@
                        "MigrateGnuPGKeybase"
                        
 ####################################################################
- "MigrateGnuPGKeybase" based heavily on "StartCon", so most Infos
- are also valid for "MigrateGnuPGKeybase" here. The logic somewhat
- differ from "StartCon", due to the "GpgMigrate"-section below:
+"MigrateGnuPGKeybase" basiert auf dem Programm "StartCon". Die
+meisten Informationen für "StartCon" gelten somit auch für
+"MigrateGnuPGKeybase". Die Logik unterscheidet sich bezüglich der
+von "StartCon" in einer erweiterten Funktion zur Migration von
+GnuPG Schlüsseldatenbanken, die sich in der [Sektion] "GpgMigrate"
+der INI-Datei wiederfindet (Details: s.u.) ...
   
-[GpgMigrate]
-GpgMigrate=true                               ; enable migration
-GpgGUID=904899B5-AC07-4080-897D-A34169BA4DAF  ; unique directoryname
-UserProfRoaming=%USERPROFILE%\AppData\Roaming ; path for GPG-Keys
-GpgProfile=gnupg                              ; pathname of GPG-dir
-GpgPubFile=pubring.kbx                        ; file for checking V2.x
-GpgSocket=S.dirmngr                           ; file for checking V2.x
-
- ... and to show some status-messages in splash-screen and logging
- to Windows Event-Log ... that's all about :-)
-
-		*** Copyright (C) 2017-2021 by Veit Berwig ***
+           *** Copyright (C) 2017-2022 by Veit Berwig ***
 
 Dieses Programm ist freie Software. Sie können es unter den
 Bedingungen der GNU General Public License, wie von der Free
@@ -231,6 +223,9 @@ EnvUpdate=false
 ; Auf Prozess warten (synchron) oder nach Start beenden.
 LaunchPROC_WAIT=true
 
+; In das Ereignisprotokoll schreiben (true/[false]).
+Eventlog=false
+
 ; Nicht prüfen, ob Prozess-Name ("LaunchPROC") schon im Speicher läuft.
 LaunchPROC_DONTCHECK=true
 
@@ -249,6 +244,33 @@ https_proxy_example=https://127.0.0.1:3128/
 ftp_proxy=
 ftp_proxy_format_example=http://proxyserver:proxyport/
 ftp_proxy_example=http://127.0.0.1:3128/
+
+[GpgMigrate]
+; Sektion für die Aktivierung der Migration der alten
+Schlüsseldatenbank von GnuPG (GpgMigrate=true)
+GpgMigrate=true
+
+; Aktiviert ein kleines Fenster mit Statusmeldngen zu dem
+; Migrationsvorgang in der rechten oberen Ecke des Bildschirmes.
+ShowSplash=false
+
+; Eindeutige ID im Namen des Umbenannten Originalordners, um zu prüfen
+; ob eine Migration schon erfolgt ist (Semaphor-Funktion).
+GpgGUID=904899B5-AC07-4080-897D-A34169BA4DAF
+
+; Profilordner des Nutzers
+UserProfRoaming=%USERPROFILE%\AppData\Roaming
+
+; Verzeichnisname des GnuPG-Profils
+GpgProfile=gnupg
+
+; Eindeutige Datei im neuen Schlüsselordner der neuen GnuPG-Version,
+; um zu prüfen ob schon eine neue Version vorliegt.
+GpgPubFile=pubring.kbx
+
+; Eindeutige Datei im neuen Schlüsselordner der neuen GnuPG-Version,
+; um zu prüfen ob schon eine neue Version vorliegt.
+GpgSocket=S.dirmngr
 
 [KillApp]
 ; Liste der zu beendenden Prozesse, die nach der Beendigung des
@@ -408,10 +430,62 @@ History/Changelog:
 		killing all "Gpg4Win"-processes in order to start "Kleopatra"
 		much faster under Windows at first time.
 
-	-   The cleanupProc() was disabled, due to double execution of some
+	- The cleanupProc() was disabled, due to double execution of some
 		functions in the main program and twice on exit() by cleanupProc().
+
+	1.0.0.27 (26.07.2021)
+
+	-	Re-Design for GnuPG keybase migration from v1.x -> v2.x
+	-	Writing logfile into eventlog
+	-	Create splash-output for user-information
+	-	Autotest - key-import by "remote-cotrolled" app
+
+	1.0.28.0 (16.08.2021)
+
+	- Release Change, due to evaluation of version numbers from 1.0.0.27
+	  to 1.0.28.0
+
+	- Autotest-Mode for "kleopatra" at "secring"- and "pubring"-import fixed.
+
+	- Added unattended import of "secring" and "pubring" by "GnuPG" as an
+	  alternative to "kleopatra"-AutoTest-Mode (faster and more consistent).
+	  If "gpg.exe" is provided at the ini-file in "LaunchAPP" and "LaunchPROC",
+	  "gpg.exe" will be used for import; if "kleopatra.exe" is provided at
+	  the ini-file in "LaunchAPP" and "LaunchPROC", "kleopatra.exe" will be
+	  used for import by Autotest (remote-controlling)-features of "AutoIT".
+	  Both actions are enabled, when "GpgMigrate" will be set to "true"
+	  in section [GpgMigrate].
+
+	1.0.29.0 (23.08.2021)
+
+	- $GpgGUID used now in code.
+
+	- "ShowSplash", "true" / "false" used now for disabling or enabling a tiny
+	  spalsh-screen in the upper-right corner of the display to show the user
+	  some infos about my hackings ... maybe not so informational ... so
+	  disable this fu@€in' stuff here, when you will get rid of it ...
+
+	- Changed "EventID" to "65535" in order to prevent the Eventsystem from
+	  logging false informations from already registered "EventID"s with
+	  special Numbers (see Func EventWrite()).
+
+	1.0.30.0 (04.10.2021)
+
+	- Added an eventlog-entry, when "$launchproc" runs already in memory
+	  and exit silently without an error-messagebox, when "$ShowSplash"
+	  was set to "false" in ini-file.
+
+	1.0.30.1 (28.03.2022)
+	- The cleanupProc()-function must be enabled, because it is necessary
+	  when user aborts program by selecting Exit on Tray-Menu. Removed
+	  duplicated code from runController().
+	- Added boolean-value "Eventlog" into "Main Prefs"-section of INI-file.
+	  Set "Eventlog" to "true" enables writing to the eventlog, "false"
+	  disables writing to the eventlog.
+	- Moved environment-setting of "CONTROLLERPATH"-var to the beginning,
+	  in order to use it in INI-file, when necessary.
 
 =====================================================================
 	Veit Berwig
- Janur 2021
+ August 2022
 =====================================================================
