@@ -5,10 +5,10 @@
 #AutoIt3Wrapper_Compile_Both=y
 #AutoIt3Wrapper_Res_Comment=Ein Migrationswerkzeug für die Migration der Schlüsseldatenbank von GnuPGv1 auf GnuPGv2. Konfiguriert über eine INI-Datei mit gleichem Namen der EXE-Datei.
 #AutoIt3Wrapper_Res_Description=Ein Migrationswerkzeug für die Migration der Schlüsseldatenbank von GnuPGv1 auf GnuPGv2. Konfiguriert über eine INI-Datei mit gleichem Namen der EXE-Datei.
-#AutoIt3Wrapper_Res_Fileversion=1.0.30.0
+#AutoIt3Wrapper_Res_Fileversion=1.0.30.1
 #AutoIt3Wrapper_Res_ProductName=MigrateGnuPGKeybase
-#AutoIt3Wrapper_Res_ProductVersion=1.0.30.0
-#AutoIt3Wrapper_Res_LegalCopyright=Copyright 2017-2021 by Veit Berwig. Lizenzierung unter der GPL 3.0 (Open-Source)
+#AutoIt3Wrapper_Res_ProductVersion=1.0.30.1
+#AutoIt3Wrapper_Res_LegalCopyright=Copyright 2017-2022 by Veit Berwig. Lizenzierung unter der GPL 3.0 (Open-Source)
 #AutoIt3Wrapper_Res_Language=1031
 #AutoIt3Wrapper_Res_requestedExecutionLevel=asInvoker
 #AutoIt3Wrapper_Res_Field=Author|Veit Berwig
@@ -16,26 +16,26 @@
 #AutoIt3Wrapper_Run_Tidy=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 
-; ########## !!! THIS FILE IS ENCODED IN UTF-8 with BOM !!! #########
-
-
-; Author: 	Veit Berwig
-; Desc.: 	Program-Launcher derived fron StartController for
-;           launching programs without commandline-options
-; Version: 	1.0.0.23
-; Important Info:	We have to do a case sensitive string-diff with:
-; 					If Not ("String1" == "String2") Then ...
-;					We have to do a case in-sensitive string-diff with:
-; 					If Not ("String1" <> "String2") Then ...
-; 					here !!
+; ########### !!! THIS FILE IS ENCODED IN UTF-8 with BOM !!! ########
+; Author........: Veit Berwig
+; Desc..........: Tool to convert GnuPG 1.x key-database to GnuPG 2.x
+;                 key-database. Code was derived by "StartController"
+;                 / "StartCon".
+; Version.......: 1.0.30.1
+; ###################################################################
+; Important Info: We have to do a case sensitive string-diff with:
+;                 If Not ("String1" == "String2") Then ...
+;                 We have to do a case in-sensitive string-diff with:
+;                 If Not ("String1" <> "String2") Then ...
+;                 here !!
 ;
-; == 	Test if two strings are equal. Case sensitive.
-;		The left and right values are converted to strings if they are
-;		not strings already. This operator should only be used if
-;		string comparisons need to be case sensitive.
-; <> 	Tests if two values are not equal. Case insensitive	when used
-;		with strings. To do a case sensitive not equal comparison use
-; Not ("string1" == "string2")
+; == Tests if two strings are equal. Case sensitive.
+;    The left and right values are converted to strings if they are
+;    not strings already. This operator should only be used if
+;    string comparisons need to be case sensitive.
+; <> Tests if two values are not equal. Case insensitive	when used
+;    with strings. To do a case sensitive not equal comparison use
+;    Not ("string1" == "string2")
 ;
 
 #cs
@@ -54,15 +54,14 @@
 
 	-	Old Code
 
-
 	1.0.0.24 (25.01.2021)
 
-	- 	New Code
+	-	New Code
 
 	-	Strip down the code to only execute a given program with local
 		environment by using an ini-filename
-	- 	File-Creation removed from code.
-	- 	File-Creation for ini-config-file, when not existent
+	-	File-Creation removed from code.
+	-	File-Creation for ini-config-file, when not existent
 
 	1.0.0.25 (02.06.2021)
 
@@ -80,7 +79,7 @@
 		killing all "Gpg4Win"-processes in order to start "Kleopatra"
 		much faster under Windows at first time.
 
-	-   The cleanupProc() was disabled, due to double execution of some
+	-	The cleanupProc() was disabled, due to double execution of some
 		functions in the main program and twice on exit() by cleanupProc().
 
 	1.0.0.27 (26.07.2021)
@@ -88,7 +87,7 @@
 	-	Re-Design for GnuPG keybase migration from v1.x -> v2.x
 	-	Writing logfile into eventlog
 	-	Create splash-output for user-information
-	- 	Autotest - key-import by "remote-cotrolled" app
+	-	Autotest - key-import by "remote-cotrolled" app
 
 		Check:
 		%SYSTEMDRIVE%\Users\[USERNAME]\AppData\Roaming\gnupg / gnupg_$GpgGUID
@@ -97,19 +96,19 @@
 		Workflow:
 		=========
 		01) if exist "%USERPROFILE%\AppData\Roaming\gnupg_$GpgGUID"
-		      => "Allready done => Exit"
+			=> "Allready done => Exit"
 
 		02) if exist "%USERPROFILE%\AppData\Roaming\gnupg\pubring.kbx"
-		      => "GnuPGv2 detected => Exit"
+			=> "GnuPGv2 detected => Exit"
 
 		03) if exist "%USERPROFILE%\AppData\Roaming\gnupg\S.dirmngr"
-		      => "GnuPGv2 detected => Exit"
+			=> "GnuPGv2 detected => Exit"
 
 		04) if not exist "%USERPROFILE%\AppData\Roaming\gnupg"
-		      => "No Keybase exist => Exit"
+			=> "No Keybase exist => Exit"
 
 		05) if exist "%USERPROFILE%\AppData\Roaming\gnupg" but no keyrings
-		      => "No Keybase exist => Exit"
+			=> "No Keybase exist => Exit"
 
 		06) => move	"%USERPROFILE%\AppData\Roaming\gnupg" to \
 					"%USERPROFILE%\AppData\Roaming\gnupg_$GpgGUID"
@@ -162,7 +161,7 @@
 
 	1.0.29.0 (23.08.2021)
 
-	- $GpgGUID used now in code below ( shit, i've forgotten this stuff :-( )
+	- $GpgGUID used now in code below.
 
 	- "ShowSplash", "true" / "false" used now for disabling or enabling a tiny
 	  spalsh-screen in the upper-right corner of the display to show the user
@@ -178,6 +177,17 @@
 	- Added an eventlog-entry, when "$launchproc" runs already in memory
 	  and exit silently without an error-messagebox, when "$ShowSplash"
 	  was set to "false" in ini-file.
+
+	1.0.30.1 (28.03.2022)
+	- The cleanupProc()-function must be enabled, because it is necessary
+	  when user aborts program by selecting Exit on Tray-Menu. Removed
+	  duplicated code from runController().
+	- Added boolean-value "Eventlog" into "Main Prefs"-section of INI-file.
+	  Set "Eventlog" to "true" enables writing to the eventlog, "false"
+	  disables writing to the eventlog.
+	- Moved environment-setting of "CONTROLLERPATH"-var to the beginning,
+	  in order to use it in INI-file, when necessary.
+
 	;****************************************************************
 #ce
 
@@ -194,42 +204,22 @@
 #include <Date.au3>
 #include <EventLog.au3>
 
-
 ; product name
-; Global $prod_name = "MigrateGnuPGKeybase"
+Global $prod_name = "MigrateGnuPGKeybase"
 
 ; generate dynamic name-instance from filename
-; Global $app_name = $prod_name
-
-; product name
-; - generate dynamic name-instance from filename
-; - retrieve short version of @ScriptName
-; - remove the 4 rightmost characters from the string.
-Global $scriptname_short = StringTrimRight(@ScriptName, 4)
+Global $app_name = $prod_name
+; retrieve short version of @ScriptName
+Global $scriptname_short = StringTrimRight(@ScriptName, 4) ; Remove the 4 rightmost characters from the string.
 If Not (StringLen($scriptname_short) = 0) Then
 	$app_name = $scriptname_short
 EndIf
 
-Global $app_version = "1.0.30.0"
-Global $app_copy = "Copyright 2017-2021 Veit Berwig"
+Global $app_version = "1.0.30.1"
+Global $app_copy = "Copyright 2017-2022 Veit Berwig"
+; Global $appname = $prod_name & " " & $app_version
 Global $appname = $app_name & " " & $app_version
 Global $appGUID = $app_name & "-C42E3373-4BAE-4bb9-8237-76B25C327C74"
-
-; write to eventlog
-Global $_EventError = 1
-Global $_EventWarning = 2
-Global $_EventInfo = 4
-
-; Check for GnuPG Keybase
-Global $GpgMigrate
-; GnuPG SEMAPHORE-ID
-Global $GpgGUID = "904899B5-AC07-4080-897D-A34169BA4DAF"
-; User-Profile-Roaming
-Global $UserProfRoaming
-; GnuPG Profile-Directory
-Global $GpgProfile = "gnupg"
-Global $GpgPubFile = "pubring.kbx"
-Global $GpgSocket = "S.dirmngr"
 
 Local $PATHENVCLEAN
 Global $sEnvPATH = EnvGet("PATH")
@@ -237,7 +227,7 @@ Global $pidController = 0
 Global $pidController2 = 0
 
 Global $ComSpec, $ComSpec_loc
-Global $sControllerpath, $sControllerpath_, $PrgWorkDir, $PrgWorkDirloc, $EnvUpdate_bool
+Global $sControllerpath, $sControllerpath_, $PrgWorkDir, $PrgWorkDirloc, $EnvUpdate_bool, $Eventlog_bool
 Global $Config_File, $launchapp, $dontcheckpath, $launchproc, $launchapp_param, $launchproc_sleep
 Global $https_proxy, $http_proxy, $ftp_proxy
 Global $launchproc_cascade, $launchproc_cascade_bool, $launchproc_hidden, $launchproc_hidden_bool
@@ -262,8 +252,24 @@ Global $remove5, $remove6, $remove7, $remove8, $remove9
 Global $remove10, $remove11, $remove12, $remove13, $remove14
 Global $remove15, $remove16, $remove17, $remove18, $remove19
 
+; write to eventlog
+Global $_EventError = 1
+Global $_EventWarning = 2
+Global $_EventInfo = 4
+
 ; Show splash-screen for user information
 Global $ShowSplash
+
+; Check for GnuPG Keybase
+Global $GpgMigrate
+; GnuPG SEMAPHORE-ID
+Global $GpgGUID = "904899B5-AC07-4080-897D-A34169BA4DAF"
+; User-Profile-Roaming
+Global $UserProfRoaming
+; GnuPG Profile-Directory
+Global $GpgProfile = "gnupg"
+Global $GpgPubFile = "pubring.kbx"
+Global $GpgSocket = "S.dirmngr"
 
 Global $closewinWAIT_bool, $closewinTMOUT
 
@@ -286,7 +292,6 @@ Opt("ExpandEnvStrings", 1) ; 1 = erweitert Umgebungsvariablen innerhalb von Stri
 ;     contextmenu if you double click the tray icon
 ; 8 = turn off auto check of radio item groups
 Opt("TrayMenuMode", 10)
-; Opt("TrayMenuMode", 1)
 
 TrayItemSetText($TRAY_ITEM_EXIT, $app_name & " beenden ...") ; Set the text of the default 'Exit' item.
 TrayItemSetText($TRAY_ITEM_PAUSE, $app_name & " anhalten ...") ; Set the text of the default 'Pause' item.
@@ -303,6 +308,9 @@ If (StringLen($sControllerpath) = 3) Then
 Else
 	$sControllerpath_ = $sControllerpath
 EndIf
+
+; PATH of local execution with normal separator (\)
+EnvSet("CONTROLLERPATH", $sControllerpath_)
 
 ; debug-info
 ;MsgBox(0, "Controllerpath is:", $sControllerpath_)
@@ -352,6 +360,7 @@ If (FileExists($Config_File) <> 1) Then
 	IniWrite($Config_File, "Main Prefs", "LaunchPROC_DONTCHECK", "false")
 
 	IniWrite($Config_File, "Main Prefs", "EnvUpdate", "false")
+	IniWrite($Config_File, "Main Prefs", "Eventlog", "false")
 
 	IniWrite($Config_File, "Main Prefs", "http_proxy", "")
 	IniWrite($Config_File, "Main Prefs", "http_proxy_format_example", "http://proxyserver:proxyport/")
@@ -512,6 +521,12 @@ EndIf
 $EnvUpdate_bool = StringLower(IniRead($Config_File, "Main Prefs", "EnvUpdate", "false"))
 If $EnvUpdate_bool <> "true" Then
 	$EnvUpdate_bool = "false"
+EndIf
+
+; Check for wrtiting into EventLog of the OS
+$Eventlog_bool = StringLower(IniRead($Config_File, "Main Prefs", "Eventlog", "false"))
+If $Eventlog_bool <> "true" Then
+	$Eventlog_bool = "false"
 EndIf
 
 ; Check proxy-url formats
@@ -753,7 +768,7 @@ For $i = 0 To 19 Step 1
 
 Next
 
-; ------------ CRECK FILES
+; ------------ CHECK FILES
 
 ; ------------ WRITE ENVIRONMENT
 
@@ -777,10 +792,6 @@ If $ftp_proxy <> "" Then
 	EnvSet("ftp_proxy", $ftp_proxy)
 EndIf
 
-
-; PATH of local execution
-EnvSet("CONTROLLERPATH", $sControllerpath_)
-
 ; Cleanup PATH-String from trash
 $PATHENVCLEAN = $sControllerpath_
 EnvSet("PATH", $PATHENVCLEAN & ";" & $sEnvPATH)
@@ -792,7 +803,7 @@ If $EnvUpdate_bool = "true" Then EnvUpdate()
 ; a messagebox or do an eventlog-entry and exit.
 If $launchproc_dontcheck = "false" Then
 	If ProcessExists($launchproc) Then
-		EventWrite($_EventError, $app_name, "Der Prozess:" & @CRLF & '"' & $launchproc & '"' & @CRLF & "läuft schon im Hauptspeicher !" & @CRLF & "Abbruch des Vorgangs !")
+		If $Eventlog_bool <> "false" Then EventWrite($_EventError, $app_name, "Der Prozess:" & @CRLF & '"' & $launchproc & '"' & @CRLF & "läuft schon im Hauptspeicher !" & @CRLF & "Abbruch des Vorgangs !")
 		If $ShowSplash = "true" Then
 			MsgBox(16, $appname, "Der Prozess:" & @CRLF & '"' & $launchproc & '"' & @CRLF & "läuft schon im Hauptspeicher !" & @CRLF & @CRLF & "Abbruch des Vorgangs !", 10)
 		EndIf
@@ -820,7 +831,7 @@ Func EventWrite($type = 4, $GHeader = $app_name, $GMessage = "   ")
 
 	; Using an "EventID" of "65535" (MAXVAL of 16-bit WORD) in "Cathegory" "0"
 	; (None) will prevent us from a false interpretation of an already registered
-	; "EventID", so Microsoft Windows will do its fucking shit of messages like:
+	; "EventID", so Microsoft Windows will do its f@#*ing s#*t of messages like:
 	; "The description for event ID 65535 from source ... could not be found ..."
 	; ignore this stupid stuff ..."
 	_EventLog__Report($hEventLog, $type, 0, 65535, "", $GMessage, $aData)
@@ -843,47 +854,47 @@ Func runController()
 	If $GpgMigrate = "true" Then
 		If $ShowSplash = "true" Then SplashTextOn($app_name & ": Information", "--- GnuPG Profil-Migration ---" & @CRLF & "Hinweis: " & @CRLF & "GnuPG Profil-Migration wird geprüft ...", 360, 100, @DesktopWidth - 370, @DesktopHeight / 100, 17, "", 8)
 		If $ShowSplash = "true" Then Sleep(4000)
-		EventWrite($_EventInfo, $app_name, "GnuPG Profil-Migration wird geprüft ...")
+		If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, "GnuPG Profil-Migration wird geprüft ...")
 		If FileExists($UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID) Then
 			If $ShowSplash = "true" Then ControlSetText($app_name & ": Information", "", "Static1", "--- GnuPG Profil-Migration ---" & @CRLF & "Das GnuPG-Verzeichnis wurde schon umbenannt:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & """" & @CRLF & "Migration des GnuPG-Ordners nicht notwendig !", 10)
 			If $ShowSplash = "true" Then Sleep(6000)
 			If $ShowSplash = "true" Then SplashOff()
-			EventWrite($_EventInfo, $app_name, "Das GnuPG-Verzeichnis wurde schon umbenannt:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & """" & @CRLF & "Migration des GnuPG-Ordners nicht notwendig !")
+			If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, "Das GnuPG-Verzeichnis wurde schon umbenannt:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & """" & @CRLF & "Migration des GnuPG-Ordners nicht notwendig !")
 			Exit
 		ElseIf FileExists($UserProfRoaming & "\" & $GpgProfile & "\" & $GpgPubFile) Then
 			If $ShowSplash = "true" Then ControlSetText($app_name & ": Information", "", "Static1", "--- GnuPG Profil-Migration ---" & @CRLF & "GnuPG Profil-Version 2.x erkannt:" & $GpgPubFile & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & """" & @CRLF & "Migration des GnuPG-Ordners nicht notwendig !", 10)
 			If $ShowSplash = "true" Then Sleep(6000)
 			If $ShowSplash = "true" Then SplashOff()
-			EventWrite($_EventInfo, $app_name, "GnuPG Profil-Version 2.x erkannt: " & $GpgPubFile & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & """" & @CRLF & "Migration des GnuPG-Ordners nicht notwendig !")
+			If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, "GnuPG Profil-Version 2.x erkannt: " & $GpgPubFile & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & """" & @CRLF & "Migration des GnuPG-Ordners nicht notwendig !")
 			Exit
 		ElseIf FileExists($UserProfRoaming & "\" & $GpgProfile & "\" & $GpgSocket) Then
 			If $ShowSplash = "true" Then ControlSetText($app_name & ": Information", "", "Static1", "--- GnuPG Profil-Migration ---" & @CRLF & "GnuPG Profil-Version 2.x erkannt:" & $GpgSocket & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & """" & @CRLF & "Migration des GnuPG-Ordners nicht notwendig !", 10)
 			If $ShowSplash = "true" Then Sleep(6000)
 			If $ShowSplash = "true" Then SplashOff()
-			EventWrite($_EventInfo, $app_name, "GnuPG Profil-Version 2.x erkannt: " & $GpgSocket & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & """" & @CRLF & "Migration des GnuPG-Ordners nicht notwendig !")
+			If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, "GnuPG Profil-Version 2.x erkannt: " & $GpgSocket & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & """" & @CRLF & "Migration des GnuPG-Ordners nicht notwendig !")
 			Exit
 		ElseIf Not FileExists($UserProfRoaming & "\" & $GpgProfile) Then
 			If $ShowSplash = "true" Then ControlSetText($app_name & ": Information", "", "Static1", "--- GnuPG Profil-Migration ---" & @CRLF & "GnuPG Profil-Verzeichnis existiert noch nicht." & @CRLF & "Migration des GnuPG-Ordners nicht notwendig !", 10)
 			If $ShowSplash = "true" Then Sleep(6000)
 			If $ShowSplash = "true" Then SplashOff()
-			EventWrite($_EventInfo, $app_name, "GnuPG Profil-Verzeichnis existiert noch nicht." & @CRLF & "Migration des GnuPG-Ordners nicht notwendig !")
+			If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, "GnuPG Profil-Verzeichnis existiert noch nicht." & @CRLF & "Migration des GnuPG-Ordners nicht notwendig !")
 			Exit
 		Else
 			If $ShowSplash = "true" Then ControlSetText($app_name & ": Information", "", "Static1", "--- GnuPG Profil-Migration ---" & @CRLF & "GnuPG Profil-Version 1.x erkannt." & @CRLF & "Migration des GnuPG-Ordners wird eingeleitet ...", 10)
 			If $ShowSplash = "true" Then Sleep(4000)
-			EventWrite($_EventWarning, $app_name, "GnuPG Profil-Version 1.x erkannt." & @CRLF & "Migration des GnuPG-Ordners wird eingeleitet ...")
+			If $Eventlog_bool <> "false" Then EventWrite($_EventWarning, $app_name, "GnuPG Profil-Version 1.x erkannt." & @CRLF & "Migration des GnuPG-Ordners wird eingeleitet ...")
 			Local $DirMoveExit = 1
 			$DirMoveExit = DirMove($UserProfRoaming & "\" & $GpgProfile, $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID)
 			If $DirMoveExit = 0 Then
 				If $ShowSplash = "true" Then ControlSetText($app_name & ": Information", "", "Static1", "--- GnuPG Profil-Migration ---" & @CRLF & "Fehler bei der Umbenennung des Profils:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & """" & @CRLF & "... in ..." & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & """", 10)
 				If $ShowSplash = "true" Then Sleep(6000)
 				If $ShowSplash = "true" Then SplashOff()
-				EventWrite($_EventError, $app_name, "Fehler bei der Umbenennung des Profils:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & """" & @CRLF & "... in ..." & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & """")
+				If $Eventlog_bool <> "false" Then EventWrite($_EventError, $app_name, "Fehler bei der Umbenennung des Profils:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & """" & @CRLF & "... in ..." & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & """")
 				Exit
 			Else
 				If $ShowSplash = "true" Then ControlSetText($app_name & ": Information", "", "Static1", "--- GnuPG Profil-Migration ---" & @CRLF & "GnuPG Profil-Version 1.x ..." & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & """" & @CRLF & "... erfolgreich umbenannt in ..." & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & """", 10)
 				If $ShowSplash = "true" Then Sleep(4000)
-				EventWrite($_EventInfo, $app_name, "GnuPG Profil-Version 1.x ..." & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & """" & @CRLF & "... erfolgreich umbenannt in ..." & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & """")
+				If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, "GnuPG Profil-Version 1.x ..." & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & """" & @CRLF & "... erfolgreich umbenannt in ..." & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & """")
 			EndIf
 		EndIf
 
@@ -912,14 +923,14 @@ Func runController()
 
 			If $ShowSplash = "true" Then ControlSetText($app_name & ": Information", "", "Static1", "--- GnuPG Profil-Migration ---" & @CRLF & "Migration wird mit GnuPG im Batch-Betrieb durchgeführt ...", 10)
 			If $ShowSplash = "true" Then Sleep(4000)
-			EventWrite($_EventInfo, $app_name, "Migration wird mit GnuPG im Batch-Betrieb durchgeführt ...")
+			If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, "Migration wird mit GnuPG im Batch-Betrieb durchgeführt ...")
 
 			; Set ErrorStatus of GnuPG execution to "False"
 			Global $ControllerExitError = 0
 
 			; Import private keys only, when "secring.gpg" exist ...
 			If FileExists($UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "secring.gpg") Then
-				EventWrite($_EventInfo, $app_name, "Die Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "secring.gpg" & """" & @CRLF & "... existiert, fahre mit dem Import fort !")
+				If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, "Die Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "secring.gpg" & """" & @CRLF & "... existiert, fahre mit dem Import fort !")
 				; Create new GnuPG directory, when not existent
 				$ControllerExit = RunWait($launchapp & " --check-signatures", $PrgWorkDirloc, $launchproc_hidden_bool)
 				If @error Then
@@ -935,14 +946,14 @@ Func runController()
 				If @error Then
 					$ControllerExitError = 1
 				EndIf
-				EventWrite($_EventInfo, $app_name, "Import der Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "secring.gpg" & """" & @CRLF & "... abgeschlossen, bitte Vollständigkeit der Daten prüfen !")
+				If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, "Import der Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "secring.gpg" & """" & @CRLF & "... abgeschlossen, bitte Vollständigkeit der Daten prüfen !")
 			Else
-				EventWrite($_EventWarning, $app_name, "Die Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "secring.gpg" & """" & @CRLF & "... existiert nicht, kein Import von " & """" & "secring.gpg" & """" & " !")
+				If $Eventlog_bool <> "false" Then EventWrite($_EventWarning, $app_name, "Die Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "secring.gpg" & """" & @CRLF & "... existiert nicht, kein Import von " & """" & "secring.gpg" & """" & " !")
 			EndIf
 
 			; Import public keys only, when "pubring.gpg" exist ...
 			If FileExists($UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "pubring.gpg") Then
-				EventWrite($_EventInfo, $app_name, "Die Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "pubring.gpg" & """" & @CRLF & "... existiert, fahre mit dem Import fort !")
+				If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, "Die Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "pubring.gpg" & """" & @CRLF & "... existiert, fahre mit dem Import fort !")
 				; Create new GnuPG directory, when not existent
 				$ControllerExit = RunWait($launchapp & " --check-signatures", $PrgWorkDirloc, $launchproc_hidden_bool)
 				If @error Then
@@ -958,15 +969,15 @@ Func runController()
 				If @error Then
 					$ControllerExitError = 1
 				EndIf
-				EventWrite($_EventInfo, $app_name, "Import der Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "pubring.gpg" & """" & @CRLF & "... abgeschlossen, bitte Vollständigkeit der Daten prüfen !")
+				If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, "Import der Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "pubring.gpg" & """" & @CRLF & "... abgeschlossen, bitte Vollständigkeit der Daten prüfen !")
 			Else
-				EventWrite($_EventWarning, $app_name, "Die Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "pubring.gpg" & """" & @CRLF & "... existiert nicht, kein Import von " & """" & "pubring.gpg" & """" & " !")
+				If $Eventlog_bool <> "false" Then EventWrite($_EventWarning, $app_name, "Die Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "pubring.gpg" & """" & @CRLF & "... existiert nicht, kein Import von " & """" & "pubring.gpg" & """" & " !")
 			EndIf
 
 			If $ControllerExitError = 1 Then
 				If $ShowSplash = "true" Then ControlSetText($app_name & ": Information", "", "Static1", "--- GnuPG Profil-Migration ---" & @CRLF & "Ein Fehler war beim Start von:" & @CRLF & """" & $launchapp & """" & @CRLF & "aufgetreten, bitte das Ergebnis prüfen !", 10)
 				If $ShowSplash = "true" Then Sleep(4000)
-				EventWrite($_EventError, $app_name, "Ein Fehler war beim Start von:" & @CRLF & """" & $launchapp & """" & @CRLF & "aufgetreten, bitte das Ergebnis prüfen !")
+				If $Eventlog_bool <> "false" Then EventWrite($_EventError, $app_name, "Ein Fehler war beim Start von:" & @CRLF & """" & $launchapp & """" & @CRLF & "aufgetreten, bitte das Ergebnis prüfen !")
 			EndIf
 
 			; gpg.exe is exiting norally after import in batch-processing,
@@ -974,7 +985,7 @@ Func runController()
 			If ProcessExists($launchproc) Then
 				; Close App by "Killing Process" ...
 				TraySetToolTip($app_name & ": " & @CRLF & "Der Prozess " & """" & $launchproc & """" & " wird beendet !")
-				EventWrite($_EventInfo, $app_name, "Der Prozess:" & @CRLF & """" & $launchproc & """" & @CRLF & "wird beendet !")
+				If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, "Der Prozess:" & @CRLF & """" & $launchproc & """" & @CRLF & "wird beendet !")
 				ProcessClose($launchproc)
 			EndIf
 
@@ -986,7 +997,7 @@ Func runController()
 		ElseIf (StringInStr($launchapp, "kleopatra.exe") <> 0) Then
 			If $ShowSplash = "true" Then ControlSetText($app_name & ": Information", "", "Static1", "--- GnuPG Profil-Migration ---" & @CRLF & "Migration wird mit Kleopatra im Autotest-Betrieb durchgeführt ...", 10)
 			If $ShowSplash = "true" Then Sleep(4000)
-			EventWrite($_EventInfo, $app_name, "Migration wird mit Kleopatra im Autotest-Betrieb durchgeführt ...")
+			If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, "Migration wird mit Kleopatra im Autotest-Betrieb durchgeführt ...")
 
 			; Check For processname
 			If Not ProcessExists($launchproc) Then
@@ -1001,38 +1012,38 @@ Func runController()
 				If $ControllerExit = 0 Then
 					If $ShowSplash = "true" Then ControlSetText($app_name & ": Information", "", "Static1", "--- GnuPG Profil-Migration ---" & @CRLF & "Fehler beim Start von:" & @CRLF & """" & $launchapp & """" & " !", 10)
 					If $ShowSplash = "true" Then Sleep(4000)
-					EventWrite($_EventError, $app_name, "Fehler beim Start von:" & @CRLF & """" & $launchapp & """" & " !")
+					If $Eventlog_bool <> "false" Then EventWrite($_EventError, $app_name, "Fehler beim Start von:" & @CRLF & """" & $launchapp & """" & " !")
 					; Rollback previously managed DirMove:
 					If $ShowSplash = "true" Then ControlSetText($app_name & ": Information", "", "Static1", "--- GnuPG Profil-Migration ---" & @CRLF & "Rollback Profilumbenennung wird durchgeführt:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & """" & @CRLF & "... zurück nach ..." & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & """", 10)
 					If $ShowSplash = "true" Then Sleep(4000)
-					EventWrite($_EventInfo, $app_name, "Rollback Profilumbenennung wird durchgeführt:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & """" & @CRLF & "... zurück nach ..." & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & """")
+					If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, "Rollback Profilumbenennung wird durchgeführt:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & """" & @CRLF & "... zurück nach ..." & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & """")
 					$DirMoveExit = DirMove($UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID, $UserProfRoaming & "\" & $GpgProfile)
 					If $DirMoveExit = 0 Then
 						If $ShowSplash = "true" Then ControlSetText($app_name & ": Information", "", "Static1", "--- GnuPG Profil-Migration ---" & @CRLF & "Fehler bei Rollback Profilumbenennung !", 10)
 						If $ShowSplash = "true" Then Sleep(4000)
-						EventWrite($_EventError, $app_name, "Fehler bei Rollback Profilumbenennung !")
+						If $Eventlog_bool <> "false" Then EventWrite($_EventError, $app_name, "Fehler bei Rollback Profilumbenennung !")
 					Else
 						If $ShowSplash = "true" Then ControlSetText($app_name & ": Information", "", "Static1", "--- GnuPG Profil-Migration ---" & @CRLF & "Rollback Profilumbenennung erfolgreich !", 10)
 						If $ShowSplash = "true" Then Sleep(4000)
-						EventWrite($_EventInfo, $app_name, "Rollback Profilumbenennung erfolgreich !")
+						If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, "Rollback Profilumbenennung erfolgreich !")
 					EndIf
 					SplashOff()
 					Exit
 				Else
 					If $ShowSplash = "true" Then ControlSetText($app_name & ": Information", "", "Static1", "--- GnuPG Profil-Migration ---" & @CRLF & """" & $launchapp & """" & @CRLF & "... wurde erfolgreich gestartet !", 10)
 					If $ShowSplash = "true" Then Sleep(2000)
-					EventWrite($_EventInfo, $app_name, """" & $launchapp & """" & @CRLF & "... wurde erfolgreich gestartet !")
+					If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, """" & $launchapp & """" & @CRLF & "... wurde erfolgreich gestartet !")
 				EndIf
 			EndIf
 
 			; Autotesting App ...
 			If $ShowSplash = "true" Then ControlSetText($app_name & ": Information", "", "Static1", "--- GnuPG Profil-Migration ---" & @CRLF & "Beginne mit Autotest (Fernsteuerung) von:" & @CRLF & """" & $launchapp & """" & " !", 10)
 			TraySetToolTip($app_name & ": " & "Beginne mit Autotest (Fernsteuerung) von:" & @CRLF & """" & $launchapp & """")
-			EventWrite($_EventInfo, $app_name, "Beginne mit Autotest (Fernsteuerung) von:" & @CRLF & """" & $launchapp & """")
+			If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, "Beginne mit Autotest (Fernsteuerung) von:" & @CRLF & """" & $launchapp & """")
 
 			; Import private keys only, when "secring.gpg" exist ...
 			If FileExists($UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "secring.gpg") Then
-				EventWrite($_EventInfo, $app_name, "Die Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "secring.gpg" & """" & @CRLF & "... existiert, fahre mit dem Import fort !")
+				If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, "Die Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "secring.gpg" & """" & @CRLF & "... existiert, fahre mit dem Import fort !")
 				; ! New Dialog !
 				; Title: "Kleopatra"
 				; Class: "Qt5150QWindowIcon"
@@ -1081,14 +1092,14 @@ Func runController()
 				WinWaitActive("[TITLE:Ergebnis des Zertifikat-Imports - Kleopatra; CLASS:Qt5150QWindowIcon]", "")
 				TraySetToolTip($app_name & ": " & @CRLF & "Sende " & """" & "ok" & """" & " an Dialog (sec-key) ...")
 				Send("!o")
-				EventWrite($_EventInfo, $app_name, "Import der Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "secring.gpg" & """" & @CRLF & "... abgeschlossen, bitte Vollständigkeit der Daten prüfen !")
+				If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, "Import der Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "secring.gpg" & """" & @CRLF & "... abgeschlossen, bitte Vollständigkeit der Daten prüfen !")
 			Else
-				EventWrite($_EventWarning, $app_name, "Die Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "secring.gpg" & """" & @CRLF & "... existiert nicht, kein Import von " & """" & "secring.gpg" & """" & " !")
+				If $Eventlog_bool <> "false" Then EventWrite($_EventWarning, $app_name, "Die Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "secring.gpg" & """" & @CRLF & "... existiert nicht, kein Import von " & """" & "secring.gpg" & """" & " !")
 			EndIf
 
 			; Import public keys only, when "pubring.gpg" exist ...
 			If FileExists($UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "pubring.gpg") Then
-				EventWrite($_EventInfo, $app_name, "Die Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "pubring.gpg" & """" & @CRLF & "... existiert, fahre mit dem Import fort !")
+				If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, "Die Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "pubring.gpg" & """" & @CRLF & "... existiert, fahre mit dem Import fort !")
 				; ! New Dialog !
 				; Title: "Kleopatra"
 				; Class: "Qt5150QWindowIcon"
@@ -1125,15 +1136,15 @@ Func runController()
 				WinWaitActive("[TITLE:Ergebnis des Zertifikat-Imports - Kleopatra; CLASS:Qt5150QWindowIcon]", "")
 				TraySetToolTip($app_name & ": " & @CRLF & "Sende " & """" & "ok" & """" & " an Dialog (pub-key) ...")
 				Send("!o")
-				EventWrite($_EventInfo, $app_name, "Import der Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "pubring.gpg" & """" & @CRLF & "... abgeschlossen, bitte Vollständigkeit der Daten prüfen !")
+				If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, "Import der Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "pubring.gpg" & """" & @CRLF & "... abgeschlossen, bitte Vollständigkeit der Daten prüfen !")
 			Else
-				EventWrite($_EventWarning, $app_name, "Die Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "pubring.gpg" & """" & @CRLF & "... existiert nicht, kein Import von " & """" & "pubring.gpg" & """" & " !")
+				If $Eventlog_bool <> "false" Then EventWrite($_EventWarning, $app_name, "Die Datei:" & @CRLF & """" & $UserProfRoaming & "\" & $GpgProfile & "_" & $GpgGUID & "\" & "pubring.gpg" & """" & @CRLF & "... existiert nicht, kein Import von " & """" & "pubring.gpg" & """" & " !")
 			EndIf
 
 			If ProcessExists($launchproc) Then
 				; Close App by "Killing Process" ...
 				TraySetToolTip($app_name & ": " & @CRLF & "Der Prozess " & """" & $launchproc & """" & " wird beendet !")
-				EventWrite($_EventInfo, $app_name, "Der Prozess:" & @CRLF & """" & $launchproc & """" & @CRLF & "wird beendet !")
+				If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, "Der Prozess:" & @CRLF & """" & $launchproc & """" & @CRLF & "wird beendet !")
 				ProcessClose($launchproc)
 			Else
 				; Write error in LOG, because maybe $launchproc was not
@@ -1144,7 +1155,7 @@ Func runController()
 				; issue, when $launchproc is not provided correctly in
 				; INI-file !!
 				TraySetToolTip($app_name & ": " & @CRLF & "!!Warnung!! - Der Prozess " & """" & $launchproc & """" & " ... existiert nicht !")
-				EventWrite($_EventWarning, $app_name, "!!Warnung!! - Der Prozess:" & @CRLF & """" & $launchproc & """" & @CRLF & "... existiert nicht !" & @CRLF & "Bitte INI-Datei prüfen !!")
+				If $Eventlog_bool <> "false" Then EventWrite($_EventWarning, $app_name, "!!Warnung!! - Der Prozess:" & @CRLF & """" & $launchproc & """" & @CRLF & "... existiert nicht !" & @CRLF & "Bitte INI-Datei prüfen !!")
 			EndIf
 
 			; Close App by "Autotest" ...
@@ -1177,7 +1188,7 @@ Func runController()
 		Else
 			If $ShowSplash = "true" Then ControlSetText($app_name & ": Information", "", "Static1", "--- GnuPG Profil-Migration ---" & @CRLF & "Migration ignoriert, da gpg.exe oder kleopatra.exe nicht in Kommandozeile vorhanden sind.", 10)
 			If $ShowSplash = "true" Then Sleep(6000)
-			EventWrite($_EventWarning, $app_name, "Migration ignoriert, da gpg.exe oder kleopatra.exe nicht in Kommandozeile vorhanden sind.")
+			If $Eventlog_bool <> "false" Then EventWrite($_EventWarning, $app_name, "Migration ignoriert, da gpg.exe oder kleopatra.exe nicht in Kommandozeile vorhanden sind.")
 		EndIf
 
 		If $ShowSplash = "true" Then ControlSetText($app_name & ": Information", "", "Static1", "--- GnuPG Profil-Migration ---" & @CRLF & "Ende der Migration der GnuPG-Schlüssel mit:" & @CRLF & """" & $launchapp & """" & @CRLF & @CRLF & "BITTE VOLLSTÄNDIGKEIT IHRER DATEN PRÜFEN !" & @CRLF & "Original-Daten stehen als Sicherung zur Verfügung.", 10)
@@ -1191,10 +1202,10 @@ Func runController()
 		Local $ControllerExit = 0
 		$ControllerExit = Run($launchapp & " " & $launchapp_param, $PrgWorkDirloc, $launchproc_hidden_bool)
 		If $ControllerExit = 0 Then
-			EventWrite($_EventError, $app_name, "Fehler beim Start von:" & @CRLF & """" & $launchapp & """")
+			If $Eventlog_bool <> "false" Then EventWrite($_EventError, $app_name, "Fehler beim Start von:" & @CRLF & """" & $launchapp & """")
 			Exit
 		Else
-			EventWrite($_EventInfo, $app_name, """" & $launchapp & """" & @CRLF & "... wurde erfolgreich gestartet !")
+			If $Eventlog_bool <> "false" Then EventWrite($_EventInfo, $app_name, """" & $launchapp & """" & @CRLF & "... wurde erfolgreich gestartet !")
 		EndIf
 	EndIf
 
@@ -1229,6 +1240,13 @@ Func runController()
 	EndIf
 
 	TraySetToolTip($app_name)
+
+EndFunc   ;==>runController
+
+; When Exit is selected in Tray-Menu, the cleanup-code above will never
+; be used, because script aborts. So we have to use this function
+; by "OnAutoItExitRegister" above.
+Func cleanupProc()
 
 	; First try to close windows named CLOSEWIN0-CLOSEWIN19 softly
 	For $i = 0 To 19 Step 1
@@ -1271,50 +1289,4 @@ Func runController()
 		EndIf
 	Next
 
-EndFunc   ;==>runController
-
-Func cleanupProc()
-
-	;	; First try to close windows named CLOSEWIN0-CLOSEWIN19 softly
-	;	For $i = 0 To 19 Step 1
-	;		$closewin = Eval("closewin" & $i)
-	;		If $closewin <> "" Then
-	;			WinClose($closewin)
-	;			If $closewinWAIT_bool == "true" Then
-	;				WinWaitClose($closewin, "", $closewinTMOUT)
-	;			EndIf
-	;		EndIf
-	;	Next
-	;
-	;	; Second forced kill processes KILLAPP0-KILLAPP19
-	;	For $i = 0 To 19 Step 1
-	;		$killapp = Eval("killapp" & $i)
-	;		If $killapp <> "" Then
-	;			If StringRight($killapp, 4) = ".exe" Then
-	;				ProcessClose($killapp)
-	;			EndIf
-	;		EndIf
-	;	Next
-	;
-	;	; Third try to delete filesystem-objects REMOVE0-REMOVE19
-	;	For $i = 0 To 19 Step 1
-	;		$remove = Eval("remove" & $i)
-	;		If $remove <> "" Then
-	;			Local $iFileExists = FileExists($remove)
-	;			If $iFileExists Then
-	;				; For debugging
-	;				; MsgBox(48, $appname, "Löschung von Objekt:" & @CRLF & @CRLF & '"' & $remove & '"' & @CRLF & @CRLF & "erfolgt in 20 Sek. oder nach Kilck von OK ...   ", 10)
-	;				; Exit
-	;				Local $iDelete = FileDelete($remove)
-	;				; For debugging
-	;				; If $iDelete Then
-	;				; 	MsgBox(64, $appname, "Löschung von Objekt:" & @CRLF & @CRLF & '"' & $remove & '"' & @CRLF & @CRLF & "erfolgreich !   ", 10)
-	;				; Else
-	;				; 	MsgBox(16, $appname, "Fehler beim Löschen von Objekt:" & @CRLF & @CRLF & '"' & $remove & '"' & " !", 10)
-	;				; EndIf
-	;			EndIf
-	;		EndIf
-	;	Next
-
 EndFunc   ;==>cleanupProc
-
